@@ -159,6 +159,18 @@ public class clippingTrianglesScript : MonoBehaviour
                 yield return null;
             }
         }
+        else if (Regex.IsMatch(command, @"^inspect(\s(1|2|3|4|5|6|7|8|9))+$"))
+        {
+            MatchCollection matches = Regex.Matches(command, @"(1|2|3|4|5|6|7|8|9)");
+            foreach (Match match in matches)
+            {
+                int subcmd = match.ToString()[0] - '1';
+                Buttons[subcmd].OnHighlight();
+                yield return new WaitForSeconds(1f);
+                Buttons[subcmd].OnHighlightEnded();
+                yield return null;
+            }
+        }
         else
             yield return "sendtochaterror Invalid command.";
     }
